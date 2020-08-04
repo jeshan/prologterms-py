@@ -166,6 +166,8 @@ class PrologRenderer(Renderer):
             if not re.match(r"^[a-z]\w*$", s):
                 s = s.replace("'","\\'").replace("\n","\\n")
                 s = "'{}'".format(s)
+        elif isinstance(t, dict):
+            return "_{}".format({self.render(k): self.render(v) for k, v in t.items()})
         else:
             s = "{}".format(t)
         # add comments
